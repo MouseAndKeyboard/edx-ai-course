@@ -176,7 +176,7 @@ class PuzzleState(object):
 ### Students need to change the method to have the corresponding parameters
 
 def writeOutput():
-
+    ...
     ### Student Code Goes here
 
 def bfs_search(initial_state):
