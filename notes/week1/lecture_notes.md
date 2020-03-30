@@ -10,12 +10,12 @@
 - Acting humanly
 - Acting rationally
 
-### Thinking Humanly: Cognitive approach
+### Thinking Humanly: Cognitive modelling approach
 
 Cognitive science perspective
 Learn how humans think and then apply this to machines
 
-### Acting humanly
+### Acting humanly: The Turing Test approach
 
 Machines do things like humans
 Alan turing
@@ -33,12 +33,15 @@ Behave mechanically like a human
 Codify thinking with logic
 issues:
 - Not all knowledge can be expressed with logical notations
-- 
+- Solving a problem in practice is much harder than theoretically being able to solve a problem
 
 ### Acting rationally
 
 - Taking the correct actions:
   - The agent will attempt to maximise its expected outcome.
+  - Many rational actions depend on rational inference (*thinking rationally*)
+    - Some things don't:
+      - You don't need to think and calculate if you should remove your hand from a stove, you just do.
 
 # Application of AI
 
