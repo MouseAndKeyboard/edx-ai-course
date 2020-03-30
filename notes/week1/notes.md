@@ -78,7 +78,7 @@ Machine translation:
     - DeepBlue
   - Go
     - AlphaGo
-  - Jepordy
+  - Jeopardy
     - IBM Watson 
   - Multi-games
     - AlphaGo Zero
