@@ -209,11 +209,12 @@ def calculate_manhattan_dist(idx, value, n):
 
     ### STUDENT CODE GOES HERE ###
 
-def test_goal(puzzle_state):
-
+def test_goal(puzzle_state: PuzzleState):
     """test the state is the goal state or not"""
-
-    ### STUDENT CODE GOES HERE ###
+    if puzzle_state.config == tuple(sorted(puzzle_state.config)):
+        return True
+    else:
+        return False 
 
 # Main Function that reads in Input and Runs corresponding Algorithm
 
