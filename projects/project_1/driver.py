@@ -4,7 +4,6 @@ Python 3
 """
 
 import queue as Q
-from queue import PriorityQueue
 
 import time
 
@@ -184,10 +183,25 @@ def writeOutput():
     ### Student Code Goes here
 
 def bfs_search(initial_state):
-
     """BFS search"""
 
-    ### STUDENT CODE GOES HERE ###
+    discovered = [initial_state]
+    frontier = Q.Queue()
+    frontier.put(initial_state)
+
+    while not frontier.empty():
+        v = frontier.get()
+        if test_goal(v):
+            v.display()
+            return v
+        for edge in v.expand():
+            if edge not in discovered:
+                discovered.append(edge)
+                frontier.put(edge)
+
+
+
+
 
 def dfs_search(initial_state: PuzzleState):
     """DFS search"""
