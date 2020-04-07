@@ -178,8 +178,17 @@ class PuzzleState(object):
 
 ### Students need to change the method to have the corresponding parameters
 
-def writeOutput():
-    ...
+def writeOutput(node):
+    path = []
+    path.append(node)
+    while node.parent is not None:
+       path.append(node.parent)
+       node = node.parent
+
+    for node in reversed(path):
+        node.display()
+        print()
+    
     ### Student Code Goes here
 
 def bfs_search(initial_state):
@@ -192,7 +201,7 @@ def bfs_search(initial_state):
     while not frontier.empty():
         v = frontier.get()
         if test_goal(v):
-            v.display()
+            writeOutput(v)
             return v
         for edge in v.expand():
             if edge not in discovered:
