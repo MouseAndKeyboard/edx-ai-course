@@ -203,11 +203,18 @@ def calculate_total_cost(state):
 
     ### STUDENT CODE GOES HERE ###
 
-def calculate_manhattan_dist(idx, value, n):
-
+def calculate_manhattan_dist(index_current, index_target, n):
     """calculate the manhattan distance of a tile"""
+    
+    current_col = index_current % n
+    current_row = index_current // n
 
-    ### STUDENT CODE GOES HERE ###
+    target_col = index_target % n
+    target_row = index_target // n
+
+    manhattan = abs(current_col - target_col) + abs(current_row - target_row)
+    return manhattan
+
 
 def test_goal(puzzle_state: PuzzleState):
     """test the state is the goal state or not"""
