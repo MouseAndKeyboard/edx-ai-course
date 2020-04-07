@@ -4,6 +4,7 @@ Python 3
 """
 
 import queue as Q
+from queue import PriorityQueue
 
 import time
 
@@ -50,6 +51,9 @@ class PuzzleState(object):
                 self.blank_col = i % self.n
 
                 break
+
+    def __eq__(self, value):
+        return self.config == value.config
 
     def display(self):
 
@@ -185,14 +189,45 @@ def bfs_search(initial_state):
 
     ### STUDENT CODE GOES HERE ###
 
-def dfs_search(initial_state):
-
+def dfs_search(initial_state: PuzzleState):
     """DFS search"""
 
-    ### STUDENT CODE GOES HERE ###
+    search_path = [initial_state]
+    frontier = [initial_state]
+    discovered = []
+
+    while len(frontier) > 0:
+        print(len(frontier))
+        new_focus = frontier[-1]
+        search_path.append(new_focus)
+        focus_children = new_focus.expand()
+        discovered.append(new_focus)
+
+        frontier = []
+        for focus_child in focus_children:
+            if test_goal(focus_child):
+                print(search_path)
+                return search_path
+
+            if focus_child not in discovered:
+                frontier.append(focus_child)
+
+        if len(frontier) == 0:
+            if len(search_path) == 0:
+                return False
+
+            frontier = [search_path.pop()]
+
+
+        
+
 
 def A_star_search(initial_state):
 
+    discovered = []
+    frontier = []
+
+    
     """A * search"""
 
     ### STUDENT CODE GOES HERE ###
