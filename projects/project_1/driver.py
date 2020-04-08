@@ -202,6 +202,18 @@ class PuzzleState(object):
 ### Students need to change the method to have the corresponding parameters
 
 def writeOutput(node):
+    path = []
+    path.append(node)
+    while node.parent is not None:
+        path.append(node.parent)
+        node = node.parent
+
+    path = path[:-1]
+
+    output_string = f"""path_to_goal: {[x.action for x in reversed(path)]}\ncost_of_path: {len(path)}\nnodes_expanded: {0}\nsearch_depth: {0}\nmax_search_depth: {0}"""
+
+    with open('output.txt', mode='w+') as output_file:
+        output_file.write(output_string)
 
    
 def bfs_search(initial_state):
