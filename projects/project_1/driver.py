@@ -234,7 +234,21 @@ def dfs_search(initial_state: PuzzleState):
 def A_star_search(initial_state):
     """A * search"""
 
+    discovered = []
+    frontier = Q.PriorityQueue()
 
+    frontier.put((calculate_total_cost(initial_state), initial_state))
+
+    discovered = []
+    while len(frontier) > 0:
+        v = frontier.get()
+        if test_goal(v):
+            return v
+        if v not in discovered:
+            discovered.append(v)
+            for child in v.expand():
+                frontier.put((calculate_total_cost(child), child))
+    
 
 def calculate_total_cost(state):
 
