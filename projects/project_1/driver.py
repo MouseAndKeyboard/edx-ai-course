@@ -222,16 +222,18 @@ def bfs_search(initial_state):
     discovered = [initial_state]
     frontier = Q.Queue()
     frontier.put(initial_state)
+    nodes_expanded = 0
 
     while not frontier.empty():
         v = frontier.get()
         if test_goal(v):
-            print(len(discovered))
-            return v
+            return (v, nodes_expanded)
+        nodes_expanded += 1
         for edge in v.expand():
             if edge not in discovered:
                 discovered.append(edge)
                 frontier.put(edge)
+
 
 
 
@@ -242,18 +244,19 @@ def dfs_search(initial_state: PuzzleState):
 
     frontier = []
     discovered = []
-
+    nodes_expanded = 0
+    
     frontier.append(initial_state)
     while len(frontier) > 0:
         v = frontier.pop()
         if test_goal(v):
-            return v
+            return (v, nodes_expanded)
         if v not in discovered:
             discovered.append(v)
+            nodes_expanded += 1
             for child in v.expand():
                 frontier.append(child)
 
-        
 
 
 def A_star_search(initial_state):
@@ -265,16 +268,19 @@ def A_star_search(initial_state):
     frontier.put((calculate_total_cost(initial_state), initial_state))
 
     discovered = []
+    nodes_expanded = 0
 
     while not frontier.empty():
         (cost, v) = frontier.get()
         
         if test_goal(v):
-            return v
+            return (v, nodes_expanded)
         if v not in discovered:
             discovered.append(v)
+            nodes_expanded += 1
             for child in v.expand():
                 frontier.put((calculate_total_cost(child), child))
+
     
 
 def calculate_total_cost(state):
@@ -326,14 +332,14 @@ def main():
     result = None
     if sm == "bfs":
 
-        result = bfs_search(hard_state)
+        result, nodes_expanded = bfs_search(hard_state)
 
     elif sm == "dfs":
 
-        result = dfs_search(hard_state)
+        result, nodes_expanded = dfs_search(hard_state)
 
     elif sm == "ast":
-        result = A_star_search(hard_state)
+        result, nodes_expanded = A_star_search(hard_state)
 
     else:
 
