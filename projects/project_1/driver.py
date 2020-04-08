@@ -201,7 +201,7 @@ def bfs_search(initial_state):
     while not frontier.empty():
         v = frontier.get()
         if test_goal(v):
-            writeOutput(v)
+            print(len(discovered))
             return v
         for edge in v.expand():
             if edge not in discovered:
@@ -215,32 +215,19 @@ def bfs_search(initial_state):
 def dfs_search(initial_state: PuzzleState):
     """DFS search"""
 
-    search_path = [initial_state]
-    frontier = [initial_state]
+    frontier = []
     discovered = []
 
+    frontier.append(initial_state)
     while len(frontier) > 0:
-        print(len(frontier))
-        new_focus = frontier[-1]
-        search_path.append(new_focus)
-        focus_children = new_focus.expand()
-        discovered.append(new_focus)
-
-        frontier = []
-        for focus_child in focus_children:
-            if test_goal(focus_child):
-                print(search_path)
-                return search_path
-
-            if focus_child not in discovered:
-                frontier.append(focus_child)
-
-        if len(frontier) == 0:
-            if len(search_path) == 0:
-                return False
-
-            frontier = [search_path.pop()]
-
+        v = frontier.pop()
+        if test_goal(v):
+            print(len(discovered))
+            return v
+        if v not in discovered:
+            discovered.append(v)
+            for child in v.expand():
+                frontier.append(child)
 
         
 
@@ -294,22 +281,25 @@ def main():
     size = int(math.sqrt(len(begin_state)))
 
     hard_state = PuzzleState(begin_state, size)
-
+    result = None
     if sm == "bfs":
 
-        bfs_search(hard_state)
+        result = bfs_search(hard_state)
 
     elif sm == "dfs":
 
-        dfs_search(hard_state)
+        result = dfs_search(hard_state)
 
     elif sm == "ast":
 
-        A_star_search(hard_state)
+        result = A_star_search(hard_state)
 
     else:
 
         print("Enter valid command arguments !")
+        quit()
+    
+    # writeOutput(result)
 
 if __name__ == '__main__':
 
