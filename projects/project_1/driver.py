@@ -201,7 +201,7 @@ class PuzzleState(object):
 
 ### Students need to change the method to have the corresponding parameters
 
-def writeOutput(node):
+def writeOutput(node, nodes_expanded):
     path = []
     path.append(node)
     while node.parent is not None:
@@ -210,7 +210,7 @@ def writeOutput(node):
 
     path = path[:-1]
 
-    output_string = f"""path_to_goal: {[x.action for x in reversed(path)]}\ncost_of_path: {len(path)}\nnodes_expanded: {0}\nsearch_depth: {0}\nmax_search_depth: {0}"""
+    output_string = f"""path_to_goal: {[x.action for x in reversed(path)]}\ncost_of_path: {len(path)}\nnodes_expanded: {nodes_expanded}\nsearch_depth: {0}\nmax_search_depth: {0}"""
 
     with open('output.txt', mode='w+') as output_file:
         output_file.write(output_string)
@@ -223,18 +223,18 @@ def bfs_search(initial_state):
     frontier = Q.Queue()
     frontier.put(initial_state)
     nodes_expanded = 0
-
     while not frontier.empty():
         v = frontier.get()
+
         if test_goal(v):
             return (v, nodes_expanded)
+      
         nodes_expanded += 1
         for edge in v.expand():
             if edge not in discovered:
+                valid_children = True
                 discovered.append(edge)
                 frontier.put(edge)
-
-
 
 
 
@@ -249,8 +249,10 @@ def dfs_search(initial_state: PuzzleState):
     frontier.append(initial_state)
     while len(frontier) > 0:
         v = frontier.pop()
+
         if test_goal(v):
             return (v, nodes_expanded)
+            
         if v not in discovered:
             discovered.append(v)
             nodes_expanded += 1
@@ -346,7 +348,7 @@ def main():
         print("Enter valid command arguments !")
         quit()
     
-    writeOutput(result)
+    writeOutput(result, nodes_expanded)
 
 if __name__ == '__main__':
 
