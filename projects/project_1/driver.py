@@ -51,6 +51,29 @@ class PuzzleState(object):
 
                 break
 
+    def __lt__(self, value):
+        thisval = 0
+        otherval = 0
+        if self.action == "Up":
+            thisval = 0
+        elif self.action == "Down":
+            thisval = 1
+        elif self.action == "Left":
+            thisval = 2
+        elif self.action == "Right":
+            thisval = 3
+
+        if value.action == "Up":
+            otherval = 0
+        elif value.action == "Down":
+            otherval = 1
+        elif value.action == "Left":
+            otherval = 2
+        elif value.action == "Right":
+            otherval = 3
+
+        return thisval < otherval
+
     def __eq__(self, value):
         return self.config == value.config
 
@@ -179,18 +202,8 @@ class PuzzleState(object):
 ### Students need to change the method to have the corresponding parameters
 
 def writeOutput(node):
-    path = []
-    path.append(node)
-    while node.parent is not None:
-       path.append(node.parent)
-       node = node.parent
 
-    for node in reversed(path):
-        node.display()
-        print()
-    
-    ### Student Code Goes here
-
+   
 def bfs_search(initial_state):
     """BFS search"""
 
@@ -240,8 +253,10 @@ def A_star_search(initial_state):
     frontier.put((calculate_total_cost(initial_state), initial_state))
 
     discovered = []
-    while len(frontier) > 0:
-        v = frontier.get()
+
+    while not frontier.empty():
+        (cost, v) = frontier.get()
+        
         if test_goal(v):
             return v
         if v not in discovered:
@@ -306,7 +321,6 @@ def main():
         result = dfs_search(hard_state)
 
     elif sm == "ast":
-
         result = A_star_search(hard_state)
 
     else:
@@ -314,7 +328,7 @@ def main():
         print("Enter valid command arguments !")
         quit()
     
-    # writeOutput(result)
+    writeOutput(result)
 
 if __name__ == '__main__':
 
