@@ -222,7 +222,6 @@ def dfs_search(initial_state: PuzzleState):
     while len(frontier) > 0:
         v = frontier.pop()
         if test_goal(v):
-            print(len(discovered))
             return v
         if v not in discovered:
             discovered.append(v)
@@ -233,20 +232,22 @@ def dfs_search(initial_state: PuzzleState):
 
 
 def A_star_search(initial_state):
-
-    discovered = []
-    frontier = []
-
-    
     """A * search"""
 
-    ### STUDENT CODE GOES HERE ###
+
 
 def calculate_total_cost(state):
 
     """calculate the total estimated cost of a state"""
 
-    ### STUDENT CODE GOES HERE ###
+    total_cost = 0
+    n = state.n
+    for current, target in zip(state.config, range(n*n)):
+        total_cost += calculate_manhattan_dist(current, target, n)
+
+    return state.cost + total_cost
+
+    
 
 def calculate_manhattan_dist(index_current, index_target, n):
     """calculate the manhattan distance of a tile"""
